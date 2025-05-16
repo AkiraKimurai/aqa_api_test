@@ -1,0 +1,920 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Test Service",
+        "version": "0.1.0"
+    },
+    "paths": {
+        "/data/": {
+            "get": {
+                "tags": [
+                    "Application Data"
+                ],
+                "summary": "Get data",
+                "operationId": "get_data_data__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    },
+                                    "type": "object",
+                                    "title": "Response Get Data Data  Get"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Application Data"
+                ],
+                "summary": "Update data",
+                "operationId": "update_data_data__put",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "additionalProperties": {
+                                    "type": "string"
+                                },
+                                "type": "object",
+                                "title": "Data"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    },
+                                    "type": "object",
+                                    "title": "Response Update Data Data  Put"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Application Data"
+                ],
+                "summary": "Remove data",
+                "operationId": "delete_data_data__delete",
+                "responses": {
+                    "204": {
+                        "description": "Successful Response"
+                    }
+                }
+            }
+        },
+        "/plans/": {
+            "get": {
+                "tags": [
+                    "Backup Plans"
+                ],
+                "summary": "Get backup plans",
+                "operationId": "get_plans_plans__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/PlanResponse"
+                                    },
+                                    "type": "array",
+                                    "title": "Response Get Plans Plans  Get"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Backup Plans"
+                ],
+                "summary": "Create backup plan",
+                "operationId": "create_plan_plans__post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PlanRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PlanRequest"
+                                }
+                            }
+                        },
+                        "links": {
+                            "GetPlanId": {
+                                "operationId": "update_plan_plans__plan_id__put",
+                                "parameters": {
+                                    "plan_id": "$response.body#/id"
+                                },
+                                "description": "The `id` value returned in the response can be used as the `plan_id` value in `PUT /plans/{plan_id}`"
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/plans/{plan_id}": {
+            "put": {
+                "tags": [
+                    "Backup Plans"
+                ],
+                "summary": "Update backup plan",
+                "operationId": "update_plan_plans__plan_id__put",
+                "parameters": [
+                    {
+                        "name": "plan_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Plan Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PlanRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PlanResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PlanNotFoundResponse"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Backup Plans"
+                ],
+                "summary": "Get backup plan",
+                "operationId": "get_plan_plans__plan_id__get",
+                "parameters": [
+                    {
+                        "name": "plan_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Plan Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PlanResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PlanNotFoundResponse"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Backup Plans"
+                ],
+                "summary": "Delete backup plan",
+                "operationId": "delete_plan_plans__plan_id__delete",
+                "parameters": [
+                    {
+                        "name": "plan_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Plan Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful Response"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PlanNotFoundResponse"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/plans/{plan_id}/backup": {
+            "post": {
+                "tags": [
+                    "Backup Plans"
+                ],
+                "summary": "Run backup",
+                "operationId": "run_backup_plans__plan_id__backup_post",
+                "parameters": [
+                    {
+                        "name": "plan_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Plan Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PlanNotFoundResponse"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/restore_points/": {
+            "get": {
+                "tags": [
+                    "Restore Point"
+                ],
+                "summary": "Get restore points",
+                "operationId": "get_restore_points_restore_points__get",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 5,
+                            "minimum": 1,
+                            "default": 5,
+                            "title": "Limit"
+                        }
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "default": 0,
+                            "title": "Offset"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/RestorePointResponse"
+                                    },
+                                    "title": "Response Get Restore Points Restore Points  Get"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/restore_points/{restore_point_id}/restore": {
+            "post": {
+                "tags": [
+                    "Restore Point"
+                ],
+                "summary": "Run restore",
+                "operationId": "run_restore_restore_points__restore_point_id__restore_post",
+                "parameters": [
+                    {
+                        "name": "restore_point_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Restore Point Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RestoreRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PlanNotFoundResponse"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tasks/{task_id}": {
+            "get": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Get task",
+                "operationId": "get_backup_tasks__task_id__get",
+                "parameters": [
+                    {
+                        "name": "task_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Task Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskNotFoundResponse"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tasks/": {
+            "get": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Get tasks",
+                "operationId": "get_backup_tasks__get",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 5,
+                            "minimum": 1,
+                            "default": 5,
+                            "title": "Limit"
+                        }
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "default": 0,
+                            "title": "Offset"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/TaskResponse"
+                                    },
+                                    "title": "Response Get Backup Tasks  Get"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "HTTPValidationError": {
+                "properties": {
+                    "detail": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        },
+                        "type": "array",
+                        "title": "Detail"
+                    }
+                },
+                "type": "object",
+                "title": "HTTPValidationError"
+            },
+            "PlanNotFoundResponse": {
+                "properties": {
+                    "code": {
+                        "type": "string",
+                        "title": "Code",
+                        "default": "PLAN_NOT_FOUND"
+                    }
+                },
+                "type": "object",
+                "title": "PlanNotFoundResponse"
+            },
+            "PlanRequest": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "maxLength": 64,
+                        "minLength": 3,
+                        "title": "Name",
+                        "description": "Backup plan name"
+                    },
+                    "paths": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "maxItems": 16,
+                        "minItems": 1,
+                        "title": "Paths",
+                        "description": "Data paths for backup"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "paths"
+                ],
+                "title": "PlanRequest"
+            },
+            "PlanResponse": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "maxLength": 64,
+                        "minLength": 3,
+                        "title": "Name",
+                        "description": "Backup plan name"
+                    },
+                    "paths": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "maxItems": 16,
+                        "minItems": 1,
+                        "title": "Paths",
+                        "description": "Data paths for backup"
+                    },
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Id",
+                        "description": "Backup plan id"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "paths",
+                    "id"
+                ],
+                "title": "PlanResponse"
+            },
+            "RestorePointResponse": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Id",
+                        "description": "Restore point id"
+                    },
+                    "plan_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Plan Id",
+                        "description": "Backup plan id"
+                    },
+                    "paths": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "title": "Paths",
+                        "description": "Stored data paths"
+                    },
+                    "create_time": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Create Time",
+                        "description": "Restore point creation time"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "plan_id",
+                    "paths",
+                    "create_time"
+                ],
+                "title": "RestorePointResponse"
+            },
+            "RestoreRequest": {
+                "properties": {
+                    "paths": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "maxItems": 16,
+                        "minItems": 1,
+                        "title": "Paths",
+                        "description": "Data paths for restore"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "paths"
+                ],
+                "title": "RestoreRequest"
+            },
+            "TaskFails": {
+                "type": "string",
+                "enum": [
+                    "NO_DATA_FOR_BACKUP",
+                    "BACKUP_ALREADY_IN_PROGRESS",
+                    "NO_DATA_FOR_RESTORE"
+                ],
+                "title": "TaskFails"
+            },
+            "TaskNotFoundResponse": {
+                "properties": {
+                    "code": {
+                        "type": "string",
+                        "title": "Code",
+                        "default": "TASK_NOT_FOUND"
+                    }
+                },
+                "type": "object",
+                "title": "TaskNotFoundResponse"
+            },
+            "TaskResponse": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Id",
+                        "description": "Task id"
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/TaskTypes",
+                        "description": "Task type"
+                    },
+                    "paths": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "title": "Paths",
+                        "description": "Data paths for restore"
+                    },
+                    "state": {
+                        "$ref": "#/components/schemas/TaskStates",
+                        "description": "Task states"
+                    },
+                    "start_time": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Start Time",
+                        "description": "Task start time"
+                    },
+                    "plan_id": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Plan Id",
+                        "description": "Plan id"
+                    },
+                    "finish_time": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Finish Time",
+                        "description": "Task finish time"
+                    },
+                    "error": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/TaskFails"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "description": "Task error"
+                    },
+                    "restore_point_id": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Restore Point Id",
+                        "description": "Restore point id"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "type",
+                    "paths",
+                    "state",
+                    "start_time"
+                ],
+                "title": "TaskResponse"
+            },
+            "TaskStates": {
+                "type": "string",
+                "enum": [
+                    "IN_PROGRESS",
+                    "COMPLETED",
+                    "FAILED"
+                ],
+                "title": "TaskStates"
+            },
+            "TaskTypes": {
+                "type": "string",
+                "enum": [
+                    "BACKUP",
+                    "RESTORE"
+                ],
+                "title": "TaskTypes"
+            },
+            "ValidationError": {
+                "properties": {
+                    "loc": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        "type": "array",
+                        "title": "Location"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Error Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "title": "ValidationError"
+            }
+        }
+    }
+}
