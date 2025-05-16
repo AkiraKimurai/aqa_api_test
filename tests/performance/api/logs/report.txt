@@ -1,0 +1,31 @@
+time="2025-05-16T18:18:20+03:00" level=info msg="🔄 Загрузка OpenAPI спецификации с https://test-service.azza.cc/openapi.json..." source=console
+time="2025-05-16T18:18:21+03:00" level=info msg="✅ Спецификация OpenAPI загружена" source=console
+time="2025-05-16T18:18:21+03:00" level=info msg="🔎 Тестирование API..." source=console
+time="2025-05-16T18:18:24+03:00" level=info msg="🔎 Тестирование API..." source=console
+time="2025-05-16T18:18:24+03:00" level=info msg="🔄 Загрузка OpenAPI спецификации с https://test-service.azza.cc/openapi.json..." source=console
+time="2025-05-16T18:18:25+03:00" level=info msg="✅ Спецификация OpenAPI загружена" source=console
+time="2025-05-16T18:18:25+03:00" level=info msg="🔎 Тестирование API..." source=console
+
+     ✓ OpenAPI загружен успешно
+
+     checks.........................: 100.00% ✓ 2        ✗ 0  
+     data_received..................: 40 kB   5.2 kB/s
+     data_sent......................: 2.9 kB  371 B/s
+   ✓ errors.........................: 0.00%   ✓ 0        ✗ 0  
+     http_req_blocked...............: avg=12.45ms   min=0s      med=0s      max=201.15ms p(90)=0s       p(95)=92.05ms  
+     http_req_connecting............: avg=4.28ms    min=0s      med=0s      max=56ms     p(90)=0s       p(95)=41.58ms  
+   ✓ http_req_duration..............: avg=58.85ms   min=53.07ms med=54.82ms max=109.96ms p(90)=55.81ms  p(95)=95.54ms  
+       { expected_response:true }...: avg=58.85ms   min=53.07ms med=54.82ms max=109.96ms p(90)=55.81ms  p(95)=95.54ms  
+     http_req_failed................: 0.00%   ✓ 0        ✗ 26 
+     http_req_receiving.............: avg=4.38ms    min=0s      med=0s      max=54.87ms  p(90)=859.3µs  p(95)=40.19ms  
+     http_req_sending...............: avg=19.56µs   min=0s      med=0s      max=508.8µs  p(90)=0s       p(95)=0s       
+     http_req_tls_handshaking.......: avg=5.17ms    min=0s      med=0s      max=67.9ms   p(90)=0s       p(95)=50.05ms  
+     http_req_waiting...............: avg=54.45ms   min=53.07ms med=54.23ms max=55.74ms  p(90)=55.35ms  p(95)=55.4ms   
+     http_reqs......................: 26      3.369714/s
+     iteration_duration.............: avg=3.66s     min=3.47s   med=3.7s    max=3.81s    p(90)=3.79s    p(95)=3.8s     
+     iterations.....................: 3       0.388813/s
+     response_time..................: avg=54.649717 min=53.0767 med=54.6892 max=56.217   p(90)=55.32841 p(95)=55.410825
+     success_rate...................: 100.00% ✓ 24       ✗ 0  
+     vus............................: 2       min=1      max=2
+     vus_max........................: 2       min=2      max=2
+
